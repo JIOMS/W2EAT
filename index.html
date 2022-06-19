@@ -55,15 +55,18 @@
         }
 
         function prepend_row(food){
-            tr = create_row(food)
+            if(food.length > 0){
+                tr = create_row(food)
 
-            food_table.insertBefore(tr, food_table.firstChild)
+                food_table.insertBefore(tr, food_table.firstChild)
+            }
         }
     </script>
     <style>
 
         body{
-            height: 97vh;
+            height: 80vh;
+            width: 95vw;
         }
 
         .container{
@@ -78,14 +81,14 @@
         #result_btn{
             background-color: rgb(230, 230, 250);
             border: solid 1px;
-            margin: 2.5vh 30vw;
+            margin: 2vh 30vw;
             width: 40vw;
             height: 5vh;
             font-size: 5vw;
         }
         
         #food_result{
-            font-size: 10vw;
+            font-size: 8vw;
         }
 
         #result_div{
@@ -106,13 +109,17 @@
         #table_div{
             /* width: 60vw; */
             /* font-size: 5vw; */
-            height: 55vh;
+            height: 45vh;
             overflow-y: scroll;
         }
 
         input{
             height: 5vw;
             width: 5vw;
+        }
+
+        #food_table{
+            width: 80%;
         }
 
     </style>
@@ -126,8 +133,8 @@
         </div>
         <div id="insert_div">
             <!-- <label for="food_input" style="width: 10vw;">추가할 식당</label> -->
-            <input type="text" id="food_input" style="font-size: 5vw; margin-left: 3vw; width: 60vw; height: 60%; border:solid 1px">
-            <button id="insert_btn" onclick="prepend_row(food_input.value)"" style="width: 30vw; height: 60%; font-size: 4vw;">식당 추가하기</button>
+            <input type="text" id="food_input" style="font-size: 5vw; margin-left: 3vw; width: 60%; height: 60%; border:solid 1px">
+            <button id="insert_btn" onclick="prepend_row(food_input.value)"" style="width: 30%; height: 60%; font-size: 4vw;">식당 추가하기</button>
         </div>
         <div id="'food_div">
             <div class="container" style="height: 100%; font-size: 5vw; margin: 0 20vw;
