@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥 뭐먹지?</title>
+    <script>
+        f_list=['이면밥', '도리집', '나린', '백운면', '수탉', '달인찜닭', '고씨네', '한끼갈비', '맘터', '돈반', '골목분식', '경대김밥', '신서울', '홍대함바그', '홍대불고기', '닭칼국수', '이층집', '도쿄엔', '면탐정', '대독장', '서브웨이', '에그드랍', '이삭', '7번가', '대부', '푸둥']
+        
+        function toggle(id){
+            a = document.getElementById(id);
+            a.setAttribute('checked', !a.checked)
+        }
+
+        function create_row(name){
+            tr = document.createElement('tr')
+
+            td = document.createElement('td')
+                
+            select_input = document.createElement('input')
+            select_input.setAttribute('type', 'checkbox')
+            select_input.setAttribute('checked', 'true')
+            select_input.setAttribute('name', name)
+            select_input.setAttribute('id', name)
+            td.appendChild(select_input)
+
+            select_label = document.createElement('label')
+            select_label.setAttribute('for', name)
+            select_label.innerText = name
+            td.appendChild(select_label)
+
+            td.setAttribute('onclick', `${name}.checked = !${name}.checked`)
+
+            tr.appendChild(td)
+
+            return tr
+        }
+
+        function show_table(){
+            food_table = document.getElementById('food_table')
+            for(food in f_list){
+                tr = create_row(f_list[food])
+
+                food_table.appendChild(tr)
+            }
+        }
+
+        function select_food(){
+            let checked_list = []
+            document.querySelectorAll('input[type="checkbox"]').forEach(e=>{if(e.checked==true){checked_list.push(e.id)}})
+            // console.log(checked_list)
+            result = checked_list[Math.floor(Math.random()*checked_list.length)]
+            document.getElementById('food_result').innerText = result
+        }
+
+        function prepend_row(food){
+            tr = create_row(food)
+
+            food_table.insertBefore(tr, food_table.firstChild)
+        }
+    </script>
+    <style>
+
+        body{
+            height: 97vh;
+        }
+
+        .container{
+            border: solid 0.5vw;
+            margin-top: 0.5vh;
+        }
+
+        div{
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        #result_btn{
+            background-color: rgb(230, 230, 250);
+            border: solid 1px;
+            margin: 2.5vh 30vw;
+            width: 40vw;
+            height: 5vh;
+            font-size: 5vw;
+        }
+        
+        #food_result{
+            font-size: 10vw;
+        }
+
+        #result_div{
+            height: 20%;
+        }
+
+        #insert_div{
+            height: 10%;
+        }
+
+        div#food_div{
+            height: 60%;
+            overflow-y: scroll;
+            border: 10px;
+            /* align-items: center; */
+        }
+
+        #table_div{
+            /* width: 60vw; */
+            /* font-size: 5vw; */
+            height: 55vh;
+            overflow-y: scroll;
+        }
+
+        input{
+            height: 5vw;
+            width: 5vw;
+        }
+
+    </style>
+</head>
+<body class="container" onload="show_table()">
+        <div id="result_div"  style="display: block;">
+            <button id="result_btn" onclick="select_food()">오늘 뭐 먹지?</button>
+            <div style="text-align:center;">
+                <span id="food_result"></span>
+            </div>
+        </div>
+        <div id="insert_div">
+            <!-- <label for="food_input" style="width: 10vw;">추가할 식당</label> -->
+            <input type="text" id="food_input" style="font-size: 5vw; margin-left: 3vw; width: 60vw; height: 60%; border:solid 1px">
+            <button id="insert_btn" onclick="prepend_row(food_input.value)"" style="width: 30vw; height: 60%; font-size: 4vw;">식당 추가하기</button>
+        </div>
+        <div id="'food_div">
+            <div class="container" style="height: 100%; font-size: 5vw; margin: 0 20vw;
+            ">
+                <div style="text-align: center; margin-top: 2vw;">식당 목록</div>
+                <hr size="0.5vw" color="black">
+                <div id="table_div">
+                    <table id="food_table"></table>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
